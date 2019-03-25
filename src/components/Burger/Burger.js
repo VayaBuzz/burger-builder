@@ -10,31 +10,21 @@ const burger = (props) => {
     // an array of keys from a supplied object (but not the values).
     // We take the key array, and map each key into a new
     // array of ingredient objects. 
-    
-    const transformedIngredients1 = Object.keys(props.ingredients);
-    console.log(transformedIngredients1);
-    // returns the keys, not the values
-    
-    const transformedIngredients = 
-    transformedIngredients1.map(igKey => {
-        console.log('Entering igKey map');
-        console.log(igKey);
-
-        // just see what's going on:
-        const newIngredientArray = [...Array(props.ingredients[igKey])];
-        console.log('-----------');
-        console.log('here is new ingredient array:');
-        console.log(newIngredientArray);
-
+    let transformedIngredients = Object.keys(props.ingredients)  // returns the keys, not the values
+    .map(igKey => {
         return [...Array(props.ingredients[igKey])].map((_, i) => {
-            console.log('underscore value:');
-            console.log(_);
-            console.log('i value:');
-            console.log(i);
-            console.log('igKey::: ' + igKey);
             return <BurgerIngredient key={igKey + i} type={igKey} />
-        }) // [,]
-    });
+        });
+    })
+    .reduce((arr, el)=>{
+        return arr.concat(el)
+    }, []);  // we use reduce so it will return either empty array,
+             // or array of JSX elements.
+    if (transformedIngredients.length === 0){
+        transformedIngredients = <p>Please start adding ingredients!</p>
+    }
+
+    console.log(transformedIngredients);
     return(
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top"/>
