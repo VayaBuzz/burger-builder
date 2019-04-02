@@ -13,6 +13,6 @@ const buildControl = (props) => (
             className={classes.More} 
             onClick={props.added}>More</button>
     </div>
-);   // returns some JSX :-)
+);
 
 export default buildControl;
